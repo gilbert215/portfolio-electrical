@@ -1,12 +1,77 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Gilbert Urinzwenimana | Data Scientist & Analytics Engineer</title>
+		<title>Gilbert Urinzwenimana | Researcher |Power system |Renewable Energy and Machine Learning</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			/* ── STICKY TOP NAV ─────────────────────────────────────── */
+			#topnav {
+				position: fixed;
+				top: 0;
+				right: 0;
+				left: 0;
+				z-index: 9999;
+				background: rgba(27, 31, 34, 0.97);
+				backdrop-filter: blur(8px);
+				border-bottom: 1px solid rgba(255,255,255,0.08);
+				display: flex;
+				justify-content: flex-end;
+				align-items: center;
+				padding: 0.85rem 2.5rem;
+				gap: 0.25rem;
+			}
+
+			#topnav a {
+				color: #ccc;
+				text-decoration: none;
+				font-size: 0.82rem;
+				font-weight: 600;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				padding: 0.4rem 0.9rem;
+				border-radius: 3px;
+				transition: color 0.2s, background 0.2s;
+				font-family: "Open Sans", sans-serif;
+			}
+
+			#topnav a:hover {
+				color: #ffffff;
+				background: rgba(255,255,255,0.07);
+			}
+
+			#topnav .divider {
+				color: rgba(255,255,255,0.15);
+				font-size: 0.75rem;
+				padding: 0 0.1rem;
+				user-select: none;
+			}
+
+			/* Push page content below the fixed nav */
+			#wrapper {
+				padding-top: 48px;
+			}
+		</style>
 	</head>
 	<body class="is-preload">
+
+		<!-- STICKY TOP NAV -->
+		<nav id="topnav">
+			<a href="index.html">Home</a>
+			<span class="divider">|</span>
+			<a href="#projects">Projects</a>
+			<span class="divider">|</span>
+			<a href="#research-interests">Research Interests</a>
+			<span class="divider">|</span>
+			<a href="#research-experience">Research Experience</a>
+			<span class="divider">|</span>
+			<a href="#teaching">Teaching</a>
+			<span class="divider">|</span>
+			<a href="#education">Education</a>
+			<span class="divider">|</span>
+			<a href="#contact">Contact</a>
+		</nav>
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -40,7 +105,7 @@
 									</span>
 								</section>
 
-							<!-- Section: Skills -->
+							<!-- Section: What I Do -->
 								<section>
 									<header class="major">
 										<h2>What I Do</h2>
@@ -50,28 +115,28 @@
 											<span class="icon solid fa-bolt"></span>
 											<div class="content">
 												<h3>Deep Reinforcement Learning for Energy Systems</h3>
-												<p>Building DRL agents that learn to optimally manage microgrids, battery energy storage systems, and renewable energy sources. Applying PPO, SAC, and Multi-Agent RL to real-world energy dispatch problems using actual solar irradiance data from Kigali, Rwanda.</p>
+												<p>Building DRL agents that learn to optimally manage microgrids, battery energy storage systems, and renewable energy sources. Applying PPO and Multi-Agent RL to real-world energy dispatch problems using actual solar irradiance data from Kigali, Rwanda.</p>
 											</div>
 										</article>
 										<article>
 											<span class="icon solid fa-wave-square"></span>
 											<div class="content">
 												<h3>Power Grid Monitoring & Fault Detection</h3>
-												<p>Developing Transformer-based deep learning models for real-time fault detection and classification from PMU (Phasor Measurement Unit) time-series measurements. Combining signal processing, time-series analysis, and explainable AI for cyber-physical grid resilience.</p>
+												<p>Developing Transformer-based deep learning models for real-time fault detection and classification from PMU time-series measurements. Combining signal processing, time-series analysis, and explainable AI for grid resilience.</p>
 											</div>
 										</article>
 										<article>
 											<span class="icon solid fa-map"></span>
 											<div class="content">
 												<h3>Geospatial Analysis & Infrastructure Planning</h3>
-												<p>Applying multi-criteria spatial analysis and GIS techniques to assess energy infrastructure gaps, service accessibility, and priority development zones. Producing evidence-based insights for urban energy planning in Kigali and across Rwanda.</p>
+												<p>Applying multi-criteria spatial analysis and GIS techniques to assess energy infrastructure gaps, service accessibility, and priority development zones for evidence-based urban energy planning in Rwanda.</p>
 											</div>
 										</article>
 										<article>
 											<span class="icon solid fa-brain"></span>
 											<div class="content">
-												<h3>Machine Learning & Data Science</h3>
-												<p>End-to-end ML pipelines spanning data collection, feature engineering, model development, and evaluation. Experienced with PyTorch, Scikit-learn, and Hugging Face Transformers across classification, clustering, regression, and time-series forecasting tasks.</p>
+												<h3>Machine Learning & Predictive Analytics</h3>
+												<p>End-to-end ML pipelines spanning data collection, feature engineering, model development, and evaluation across classification, clustering, regression, and time-series forecasting tasks using PyTorch and Scikit-learn.</p>
 											</div>
 										</article>
 									</div>
@@ -90,8 +155,8 @@
 												<img src="images/microgrid.png" alt="Microgrid Energy Management" />
 											</a>
 											<h3>Microgrid Energy Management with Deep Reinforcement Learning</h3>
-											<p>A DRL agent trained with <strong>Proximal Policy Optimization (PPO)</strong> to optimally dispatch energy in a solar-battery-grid microgrid. The agent controls battery charge and discharge decisions every hour to minimise electricity costs and maximise solar utilisation — using real hourly irradiance data from Kigali, Rwanda fetched from the NASA POWER API.</p>
-											<p>The PPO agent achieved a mean reward of <strong>+0.901</strong> versus <strong>-5.209</strong> for the rule-based baseline, learning to generate revenue by selling surplus solar energy back to the grid — an 82% improvement over traditional control methods.</p>
+											<p>A DRL agent trained with <strong>Proximal Policy Optimization (PPO)</strong> to optimally dispatch energy in a solar-battery-grid microgrid. The agent controls battery charge and discharge decisions every hour to minimise electricity costs and maximise solar utilisation — using real hourly irradiance data from Kigali, Rwanda fetched directly from the NASA POWER API.</p>
+											<p>The PPO agent achieved a mean reward of <strong>+0.901</strong> versus <strong>-5.209</strong> for the rule-based baseline — learning to generate revenue by selling surplus solar energy back to the grid, an 82% improvement over traditional control methods.</p>
 											<p><strong>Stack:</strong> Python · PyTorch · Stable-Baselines3 · Gymnasium · NASA POWER API · PPO · BESS Simulation</p>
 											<ul class="actions">
 												<li><a href="https://github.com/gilbert215/microgrid-rl" class="button" target="_blank">View on GitHub</a></li>
@@ -112,77 +177,105 @@
 											</ul>
 										</article>
 
+										<!-- 3. GIS Kigali Digital Twin -->
+										<article>
+											<a href="https://www.arcgis.com/apps/dashboards/2d25127d2b7a492fabcc62e85468455d" class="image" target="_blank">
+												<img src="images/kigaliDigitalTwin.png" alt="GIS Kigali Digital Twin" />
+											</a>
+											<h3>GIS Kigali Digital Twin Project</h3>
+											<p>A comprehensive GIS-based digital twin of Kigali City, Rwanda, integrating spatial analysis, infrastructure assessment, and service accessibility evaluation to support evidence-based urban planning and energy infrastructure decision-making. Multi-criteria spatial analysis was applied across nighttime light data, water points, health facilities, and population datasets.</p>
+											<p>Key findings: <strong>87% of residents</strong> can access health facilities within 30 minutes, <strong>12 critical infrastructure gap zones</strong> identified covering 73.4 km² and affecting approximately 91,500 residents, with priority development recommendations delivered through a live interactive dashboard.</p>
+											<p><strong>Stack:</strong> ArcGIS Pro · ArcGIS Online Dashboard · Spatial Analyst · Multi-Criteria Decision Analysis · Kernel Density Estimation · Network Accessibility Analysis</p>
+											<ul class="actions">
+												<li><a href="https://github.com/gilbert215/GIS-KIGALI-DIGITAL-TWIN-PROJECT/tree/main" class="button" target="_blank">View on GitHub</a></li>
+												<li><a href="https://www.arcgis.com/apps/dashboards/2d25127d2b7a492fabcc62e85468455d" class="button" target="_blank">Live Dashboard</a></li>
+											</ul>
+										</article>
+
 									</div>
 								</section>
 
 							<!-- Section: Research Interests -->
-								<section id="research">
+								<section id="research-interests">
 									<header class="major">
 										<h2>Research Interests</h2>
 									</header>
 									<div class="features">
 										<article>
+											<span class="icon solid fa-project-diagram"></span>
+											<div class="content">
+												<h3>Intelligent Power Systems</h3>
+												<p>Investigating the application of machine learning and deep learning to modernise power system operations — including data-driven state estimation, adaptive protection schemes, and AI-assisted network analysis. Particularly interested in how learned representations from operational data can improve situational awareness in complex grid environments.</p>
+											</div>
+										</article>
+										<article>
 											<span class="icon solid fa-charging-station"></span>
 											<div class="content">
-												<h3>Deep Reinforcement Learning for Microgrids</h3>
-												<p>Applying DRL and Multi-Agent RL (MARL) to optimal energy management in microgrids and nanogrids — covering battery energy storage dispatch, demand response, EV charging scheduling, and renewable energy integration under uncertainty.</p>
+												<h3>Optimisation of Renewable Energy Systems</h3>
+												<p>Developing learning-based optimisation methods for systems integrating solar PV, wind, and battery storage — with a focus on real-world constraints such as intermittency, degradation, and grid tariff structures. Motivated by the specific opportunities and infrastructure gaps in sub-Saharan African energy markets.</p>
+											</div>
+										</article>
+										<article>
+											<span class="icon solid fa-network-wired"></span>
+											<div class="content">
+												<h3>Distributed Energy Management</h3>
+												<p>Exploring how decentralised and multi-agent learning frameworks can coordinate distributed energy resources across microgrids and nanogrids — enabling autonomous, scalable energy management without reliance on centralised controllers or perfect system models.</p>
 											</div>
 										</article>
 										<article>
 											<span class="icon solid fa-shield-alt"></span>
 											<div class="content">
-												<h3>Cyber-Physical Grid Resilience</h3>
-												<p>Using AI and PMU data for real-time fault detection, anomaly detection, and cyber-physical attack identification in smart grids. Developing explainable models that can support grid operators with interpretable, actionable decisions.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon solid fa-robot"></span>
-											<div class="content">
-												<h3>Large Language Models & Agentic AI for Energy</h3>
-												<p>Exploring the application of LLMs and Agentic AI frameworks to energy management systems — including natural language interfaces for grid control, automated report generation, and AI-assisted decision support for utility operators.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon solid fa-solar-panel"></span>
-											<div class="content">
-												<h3>Renewable Energy in Sub-Saharan Africa</h3>
-												<p>Grounding smart grid AI research in the specific constraints and opportunities of African energy infrastructure — including productive use of renewable energy (PURE), off-grid solar systems, biogas integration, and rural electrification challenges in Rwanda and the broader region.</p>
+												<h3>Grid Observability & Fault Diagnostics</h3>
+												<p>Using high-resolution PMU measurements and deep learning to improve real-time grid observability, early fault detection, and anomaly identification. Interested in bridging the gap between simulation-validated models and deployment-ready diagnostic tools that perform reliably on real, noisy grid data.</p>
 											</div>
 										</article>
 									</div>
 								</section>
 
 							<!-- Section: Research Experience -->
-								<section id="experience">
+								<section id="research-experience">
 									<header class="major">
-										<h2>Research & Teaching Experience</h2>
+										<h2>Research Experience</h2>
 									</header>
 									<div class="posts">
 
 										<article>
 											<h3>Research Assistant — Renewable Energy Impact Assessment</h3>
-											<p><strong>Carnegie Mellon University Africa</strong> | June 2025 – August 2025</p>
-											<p>Led qualitative and quantitative impact assessment for a productive use of renewable energy (PURE) project targeting 15,000 households across two districts in Rwanda. Conducted stakeholder interviews, cleaned and analysed multi-source datasets, and produced financial projections — NPV: $2.6M, IRR: 4.8% over 20 years — demonstrating biogas as a sustainable alternative to firewood. Developed Power BI dashboards to communicate findings to non-technical stakeholders.</p>
+											<p><strong>Carnegie Mellon University Africa</strong> &nbsp;|&nbsp; June 2025 – August 2025</p>
+											<p>Led qualitative and quantitative impact assessment for a productive use of renewable energy (PURE) project targeting 15,000 households across two districts in Rwanda. Conducted stakeholder interviews and field-based observations, cleaned and analysed multi-source datasets, and produced financial projections — NPV: $2.6M, IRR: 4.8% over 20 years — demonstrating biogas as a sustainable alternative to firewood. Developed Power BI dashboards to communicate findings to non-technical stakeholders.</p>
 										</article>
 
 										<article>
-											<h3>Research Analyst — Solar Electrification (MURIKA)</h3>
-											<p><strong>University of Rwanda & Heilbronn University, Germany</strong> | Dec 2022 – May 2023</p>
-											<p>Conducted market analysis and stakeholder assessment to evaluate solar energy opportunities for 595,400 unelectrified households in Rwanda. Designed scalable plug-and-play solar systems (EUR 165–225 per household) and developed a business model aligned with Rwanda's national energy goals. Implemented in Nyamagabe and Nyaruguru districts. Completed as part of a joint entrepreneurship program earning 2.5 ECTS Credits.</p>
+											<h3>Research Analyst — Solar Electrification (MURIKA Project)</h3>
+											<p><strong>University of Rwanda & Heilbronn University, Germany</strong> &nbsp;|&nbsp; Dec 2022 – May 2023</p>
+											<p>Conducted market analysis and stakeholder assessment to evaluate solar energy opportunities for 595,400 unelectrified households in Rwanda. Designed scalable plug-and-play solar systems (EUR 165–225 per household) and developed a business model with financial projections and risk mitigation strategies aligned with Rwanda's national energy goals. Implemented in Nyamagabe and Nyaruguru districts. Completed as part of a joint entrepreneurship program earning 2.5 ECTS Credits.</p>
 										</article>
 
+									</div>
+								</section>
+
+							<!-- Section: Teaching Experience -->
+								<section id="teaching">
+									<header class="major">
+										<h2>Teaching Experience</h2>
+									</header>
+									<div class="features">
 										<article>
-											<h3>Graduate Teaching Assistant — Intro to ML for Engineers</h3>
-											<p><strong>Carnegie Mellon University Africa</strong> | Jan 2026 – May 2026</p>
-											<p>Supported course instruction through lectures, recitation sessions, and office hours on machine learning concepts and Python implementation. Graded assignments and exams, and mentored students individually on course projects.</p>
+											<span class="icon solid fa-chalkboard-teacher"></span>
+											<div class="content">
+												<h3>Graduate Teaching Assistant — Intro to ML for Engineers</h3>
+												<p><strong>Carnegie Mellon University Africa</strong> | Jan 2026 – May 2026<br />
+												Supported course instruction through lectures, recitation sessions, and office hours on machine learning concepts and Python implementation. Graded assignments and exams, and mentored students individually on course projects covering reinforcement learning, neural networks, and ensemble methods.</p>
+											</div>
 										</article>
-
 										<article>
-											<h3>Graduate Teaching Assistant — Programming for Data Analytics</h3>
-											<p><strong>Carnegie Mellon University Africa</strong> | Aug 2025 – Dec 2025</p>
-											<p>Guided 50+ graduate students in Python programming, data manipulation, statistical analysis, and data visualization. Developed practical learning materials and provided one-on-one mentoring on analytical projects.</p>
+											<span class="icon solid fa-laptop-code"></span>
+											<div class="content">
+												<h3>Graduate Teaching Assistant — Programming for Data Analytics</h3>
+												<p><strong>Carnegie Mellon University Africa</strong> | Aug 2025 – Dec 2025<br />
+												Guided 50+ graduate students in Python programming, data manipulation, statistical analysis, and data visualization. Developed practical learning materials and assessment frameworks, achieving a 6.5% improvement in student performance compared to the prior cohort. Provided structured one-on-one mentoring on analytical projects.</p>
+											</div>
 										</article>
-
 									</div>
 								</section>
 
@@ -227,7 +320,7 @@
 									</form>
 								</section>
 
-							<!-- Menu -->
+							<!-- Sidebar Menu -->
 								<nav id="menu">
 									<header class="major">
 										<h2>Menu</h2>
@@ -235,14 +328,15 @@
 									<ul>
 										<li><a href="index.html">Home</a></li>
 										<li><a href="#projects">Projects</a></li>
-										<li><a href="#research">Research Interests</a></li>
-										<li><a href="#experience">Experience</a></li>
+										<li><a href="#research-interests">Research Interests</a></li>
+										<li><a href="#research-experience">Research Experience</a></li>
+										<li><a href="#teaching">Teaching</a></li>
 										<li><a href="#education">Education</a></li>
 										<li><a href="#contact">Contact</a></li>
 									</ul>
 								</nav>
 
-							<!-- About (Sidebar) -->
+							<!-- About -->
 								<section>
 									<header class="major">
 										<h2>About</h2>
