@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gilbert Urinzwenimana | AI for Smart Energy Systems</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --bg:         #0A0F1E;
+      --bg2:        #0F1628;
+      --bg3:        #141D35;
+      --border:     #1E2D50;
+      --accent:     #00C896;
+      --accent2:    #0066FF;
+      --text:       #E8EDF5;
+      --text-muted: #7A8BAA;
+      --text-dim:   #4A5A7A;
+      --mono:       'Space Mono', monospace;
+      --sans:       'Space Grotesk', sans-serif;
+      --body:       'Inter', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID OVERLAY (signature element) ──────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,200,150,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,150,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(10,15,30,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ───────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: var(--sans);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.8rem;
+      max-width: 820px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0A0F1E;
+      border: 1px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── STATS BAR ──────────────────────────────────────────────── */
+    .stats-bar {
+      position: relative;
+      z-index: 1;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 4rem;
+    }
+
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.25rem;
+    }
+
+    /* ── SECTION WRAPPER ────────────────────────────────────────── */
+    .section {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 4rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--sans);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto;
+    }
+
+    /* ── PROJECTS ───────────────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(0,200,150,0.3);
+      transform: translateY(-3px);
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Featured card takes full width */
+    .project-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .project-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      background: rgba(0,200,150,0.08);
+      border: 1px solid rgba(0,200,150,0.2);
+      border-radius: 3px;
+      padding: 0.25rem 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .project-card h3 {
+      font-family: var(--sans);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
+    }
+
+    .project-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .project-result {
+      background: rgba(0,200,150,0.06);
+      border-left: 2px solid var(--accent);
+      padding: 0.6rem 0.9rem;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .project-result strong {
+      color: var(--accent);
+      font-family: var(--mono);
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-pill {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.2rem 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .project-link {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .project-link:hover {
+      border-color: var(--accent);
+    }
+
+    /* ── RESEARCH SECTION ───────────────────────────────────────── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .research-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+    }
+
+    .research-card h4 {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .research-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .research-meta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── ABOUT ──────────────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.8;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+    }
+
+    .edu-item {
+      border-left: 2px solid var(--border);
+      padding-left: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .edu-item:hover {
+      border-left-color: var(--accent);
+    }
+
+    .edu-degree {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-school {
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-detail {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* ── SKILLS ─────────────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .skill-group {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .skill-group h4 {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .skill-list li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-list li::before {
+      content: '›';
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── CONTACT ────────────────────────────────────────────────── */
+    .contact-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3rem;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .contact-box h3 {
+      font-family: var(--sans);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-box p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .contact-item {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .contact-item a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .contact-item a:hover {
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      margin-left: 1.5rem;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--accent); }
+
+    /* ── PULSE ANIMATION (hero accent) ─────────────────────────── */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    .pulse { animation: pulse 2.5s ease-in-out infinite; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .stats-bar { padding: 1.5rem; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .project-card.featured { grid-template-columns: 1fr; gap: 1.5rem; }
+      .research-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pulse { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">GU // ENERGY AI</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="pulse">●</span> Kigali, Rwanda — Open to PhD opportunities
+    </div>
+    <h1>
+      Applying <em>AI</em> to<br/>
+      Smart Energy<br/>
+      Systems
+    </h1>
+    <p class="hero-sub">
+      Researcher and ML engineer combining a background in Electrical Power Engineering
+      with deep learning, reinforcement learning, and real-world energy data from
+      sub-Saharan Africa.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/gilbert215" class="btn btn-outline" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/urinzwenimana-gilbert-5b84b2243/" class="btn btn-outline" target="_blank">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat">
+        <span class="stat-value">3.72</span>
+        <span class="stat-label">GPA — CMU Africa</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">82%</span>
+        <span class="stat-label">Cost reduction via DRL</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">PMU fault accuracy</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">8760</span>
+        <span class="stat-label">Hours of Kigali solar data</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section-divider"></div>
+  <section class="section" id="projects">
+    <div class="section-label">Work</div>
+    <h2 class="section-title">Energy AI Projects</h2>
+
+    <div class="projects-grid">
+
+      <!-- Featured: Microgrid RL -->
+      <div class="project-card featured">
+        <div>
+          <div class="project-tag">Deep Reinforcement Learning</div>
+          <h3>Microgrid Energy Management with PPO</h3>
+          <p>
+            A DRL agent that learns to optimally dispatch energy in a solar-battery-grid
+            microgrid using real hourly irradiance data from Kigali, Rwanda fetched
+            directly from the NASA POWER API. The agent controls battery charge and
+            discharge decisions every hour to minimise electricity costs and maximise
+            solar utilisation.
+          </p>
+          <div class="project-result">
+            PPO agent achieved <strong>+0.901</strong> mean reward vs <strong>-5.209</strong>
+            for rule-based — generating revenue by selling surplus solar energy back to the grid.
+          </div>
+          <div class="tech-stack">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">PyTorch</span>
+            <span class="tech-pill">Stable-Baselines3</span>
+            <span class="tech-pill">Gymnasium</span>
+            <span class="tech-pill">NASA POWER API</span>
+            <span class="tech-pill">PPO</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/gilbert215/microgrid-rl" class="project-link" target="_blank">
+              ↗ GitHub
+            </a>
+          </div>
+        </div>
+        <div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:1.5rem;font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);line-height:2;">
+            <div style="color:var(--accent);margin-bottom:0.75rem;">// Policy Comparison Results</div>
+            <div><span style="color:#7A8BAA;">Policy        </span><span style="color:var(--text);">  Reward   Cost/Day</span></div>
+            <div style="height:1px;background:var(--border);margin:0.5rem 0;"></div>
+            <div><span style="color:var(--accent);">PPO Agent     </span><span style="color:var(--accent);">  +0.901   -$0.90 ✓</span></div>
+            <div><span style="color:#7A8BAA;">Rule-Based    </span><span style="color:#7A8BAA;">  -5.209   +$3.78</span></div>
+            <div><span style="color:#7A8BAA;">Random        </span><span style="color:#7A8BAA;">  -4.585   +$1.49</span></div>
+            <div style="height:1px;background:var(--border);margin:0.75rem 0;"></div>
+            <div style="color:var(--text-dim);">// Environment</div>
+            <div><span style="color:#7A8BAA;">Solar data    </span><span style="color:var(--text);">  Kigali 2022</span></div>
+            <div><span style="color:#7A8BAA;">Battery       </span><span style="color:var(--text);">  10 kWh BESS</span></div>
+            <div><span style="color:#7A8BAA;">Algorithm     </span><span style="color:var(--text);">  PPO · 100k steps</span></div>
+            <div><span style="color:#7A8BAA;">Timestep      </span><span style="color:var(--text);">  1 hour</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PMU Fault Detection -->
+      <div class="project-card">
+        <div class="project-tag">Transformer · Time-Series</div>
+        <h3>PMU Fault Detection & Classification</h3>
+        <p>
+          A three-stage deep learning pipeline that detects and classifies power grid
+          faults from Phasor Measurement Unit (PMU) time-series data using a custom
+          Transformer architecture. Trained on synthetic data and validated on a real
+          PMU dataset from Virginia Tech published on Zenodo.
+        </p>
+        <div class="project-result">
+          <strong>100%</strong> classification accuracy across 6 fault types:
+          Normal, LG, LL, LLG, LLL, LLLG
+        </div>
+        <div class="tech-stack">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">PyTorch</span>
+          <span class="tech-pill">Transformer</span>
+          <span class="tech-pill">SHAP</span>
+          <span class="tech-pill">PMU Data</span>
+          <span class="tech-pill">Scikit-learn</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/gilbert215" class="project-link" target="_blank">↗ GitHub</a>
+        </div>
+      </div>
+
+      <!-- GIS Kigali -->
+      <div class="project-card">
+        <div class="project-tag">GIS · Spatial Analysis</div>
+        <h3>GIS Kigali Digital Twin</h3>
+        <p>
+          A comprehensive GIS-based digital twin of Kigali City integrating spatial
+          analysis, infrastructure assessment, and service accessibility evaluation
+          to support evidence-based urban planning and energy infrastructure decisions.
+        </p>
+        <div class="project-result">
+          <strong>12 critical infrastructure gap zones</strong> identified affecting
+          ~91,500 residents across 73.4 km²
+        </div>
+        <div class="tech-stack">
+          <span class="tech-pill">ArcGIS Pro</span>
+          <span class="tech-pill">ArcGIS Online</span>
+          <span class="tech-pill">Spatial Analyst</span>
+          <span class="tech-pill">MCDA</span>
+          <span class="tech-pill">KDE</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/gilbert215/GIS-KIGALI-DIGITAL-TWIN-PROJECT/tree/main" class="project-link" target="_blank">↗ GitHub</a>
+          <a href="https://www.arcgis.com/apps/dashboards/2d25127d2b7a492fabcc62e85468455d" class="project-link" target="_blank">↗ Live Dashboard</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <div class="section-divider"></div>
+  <section class="section" id="research">
+    <div class="section-label">Research</div>
+    <h2 class="section-title">Research Experience</h2>
+
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="research-meta">June 2025 — August 2025 · Carnegie Mellon University Africa</div>
+        <h4>Biogas System Implementation — Renewable Energy Impact Assessment</h4>
+        <p>
+          Led mixed-methods impact assessment for a productive use of renewable energy
+          (PURE) project targeting 15,000 households across two districts in Rwanda.
+          Conducted stakeholder interviews, cleaned and analysed multi-source datasets,
+          and produced financial projections showing NPV of $2.6M and IRR of 4.8% over
+          20 years — demonstrating biogas as a sustainable alternative to firewood.
+        </p>
+      </div>
+      <div class="research-card">
+        <div class="research-meta">Dec 2022 — May 2023 · University of Rwanda & Heilbronn University</div>
+        <h4>Solar Electrification — MURIKA Project</h4>
+        <p>
+          Conducted market analysis and stakeholder assessment to evaluate solar energy
+          opportunities for 595,400 unelectrified households in Rwanda. Designed
+          scalable plug-and-play solar systems ranging from EUR 165–225 per household.
+          Implemented in Nyamagabe and Nyaruguru districts aligned with Rwanda's
+          national energy goals.
+        </p>
+      </div>
+      <div class="research-card">
+        <div class="research-meta">Research Interests</div>
+        <h4>AI for Smart Energy Systems</h4>
+        <p>
+          Deep Reinforcement Learning and Multi-Agent RL for microgrid and nanogrid
+          energy management. Large Language Models and Agentic AI for optimal energy
+          dispatch. Battery energy storage optimisation, demand response, and
+          cyber-physical resilient grid operation in sub-Saharan African contexts.
+        </p>
+      </div>
+      <div class="research-card">
+        <div class="research-meta">Target Research Directions</div>
+        <h4>PhD Focus Areas</h4>
+        <p>
+          Extending single-agent DRL to Multi-Agent RL for multi-microgrid coordination.
+          Integrating real Rwandan load profiles and time-of-use tariffs. Applying
+          PMU-based fault detection to cyber-physical grid resilience. Grounding
+          smart grid AI in the specific constraints of African energy infrastructure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="section-divider"></div>
+  <section class="section" id="about">
+    <div class="section-label">About</div>
+    <h2 class="section-title">Background</h2>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I am a researcher and ML engineer based in Kigali, Rwanda, with a background
+          that spans <strong>Electrical Power Engineering</strong> (University of Rwanda)
+          and <strong>Machine Learning and Data Science</strong> (Carnegie Mellon
+          University Africa, GPA 3.72).
+        </p>
+        <p>
+          My work sits at the intersection of power systems and artificial intelligence.
+          I build DRL agents that manage microgrids, Transformer models that classify
+          grid faults from PMU data, and spatial tools that map infrastructure gaps
+          in Kigali. All of it is grounded in the real energy challenges of sub-Saharan
+          Africa — where reliable, affordable, and renewable energy access remains
+          one of the defining engineering problems of the next decade.
+        </p>
+        <p>
+          I served as a <strong>Graduate Teaching Assistant</strong> at CMU Africa for
+          both Introduction to Machine Learning for Engineers and Programming for Data
+          Analytics, mentoring 50+ graduate students across both courses.
+        </p>
+
+        <div style="margin-top:2rem;">
+          <div class="section-label" style="margin-bottom:1.25rem;">Skills</div>
+          <div class="skills-grid">
+            <div class="skill-group">
+              <h4>AI / ML</h4>
+              <ul class="skill-list">
+                <li>Deep Reinforcement Learning</li>
+                <li>Transformer Models</li>
+                <li>PyTorch · TensorFlow</li>
+                <li>Scikit-learn</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h4>Energy Systems</h4>
+              <ul class="skill-list">
+                <li>Microgrid Control</li>
+                <li>PMU Data Analysis</li>
+                <li>Power Systems</li>
+                <li>BESS Optimisation</li>
+              </ul>
+            </div>
+            <div class="skill-group">
+              <h4>Tools</h4>
+              <ul class="skill-list">
+                <li>Python · Julia</li>
+                <li>ArcGIS Pro · QGIS</li>
+                <li>Power BI</li>
+                <li>Git · Linux</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:1.25rem;">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">M.S. Electrical & Computer Engineering</div>
+          <div class="edu-school">Carnegie Mellon University Africa</div>
+          <div class="edu-detail">Aug 2024 – May 2026 · GPA: 3.72 · Data Science & ML</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">B.S. Electrical Power Engineering</div>
+          <div class="edu-school">University of Rwanda</div>
+          <div class="edu-detail">Nov 2019 – Nov 2023 · GPA: 3.68 · Second Class Upper</div>
+        </div>
+
+        <div class="section-label" style="margin-top:2.5rem;margin-bottom:1.25rem;">Teaching</div>
+        <div class="edu-item">
+          <div class="edu-degree">TA — Intro to ML for Engineers</div>
+          <div class="edu-school">Carnegie Mellon University Africa</div>
+          <div class="edu-detail">Jan 2026 – May 2026</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">TA — Programming for Data Analytics</div>
+          <div class="edu-school">Carnegie Mellon University Africa</div>
+          <div class="edu-detail">Aug 2025 – Dec 2025 · 50+ students mentored</div>
+        </div>
+
+        <div class="section-label" style="margin-top:2.5rem;margin-bottom:1.25rem;">Languages</div>
+        <div class="edu-item">
+          <div class="edu-degree">Kinyarwanda</div>
+          <div class="edu-detail">Native proficiency</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">English</div>
+          <div class="edu-detail">Professional proficiency</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="section-divider"></div>
+  <section class="section" id="contact">
+    <div class="contact-box">
+      <h3>Open to PhD opportunities & collaborations</h3>
+      <p>
+        Particularly interested in AI for smart energy systems, microgrids,
+        and renewable energy integration. Based in Kigali, Rwanda.
+        Available for Fall 2026 or Spring 2027.
+      </p>
+      <a href="mailto:urinzwenimanagilbert39@gmail.com" class="btn btn-primary">
+        Send Email
+      </a>
+      <div class="contact-links">
+        <div class="contact-item">
+          <span>✉</span>
+          <a href="mailto:urinzwenimanagilbert39@gmail.com">urinzwenimanagilbert39@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span>✉</span>
+          <a href="mailto:gurinzwe@alumni.cmu.edu">gurinzwe@alumni.cmu.edu</a>
+        </div>
+        <div class="contact-item">
+          <span>📍</span> Kigali, Rwanda
+        </div>
+        <div class="contact-item">
+          <span>📞</span> (+250) 780 110 283
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Gilbert Urinzwenimana</p>
+    <div>
+      <a href="https://github.com/gilbert215" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/urinzwenimana-gilbert-5b84b2243/" target="_blank">LinkedIn</a>
+      <a href="mailto:urinzwenimanagilbert39@gmail.com">Email</a>
+    </div>
+  </footer>
+
+</body>
+</html>
